@@ -24,43 +24,43 @@
 import Repo from '../components/Repo.vue'
 import axios from 'axios'
 
-  export default {
-    name: 'Search',
-    data () {
-      return {
-        value: this.$route.query.login || "SafiVL/",
-        infos: [],
-        history: [],
-        isLoading: true
-      }
-    },
-    mounted () {
-      this.search()
-    },
-    methods: {
-      search: function() {
-        this.isLoading = true
-        this.$store.commit('ADD_HISTORY', this.value)
-        axios.get('https://api.github.com/search/repositories', {
-          params: {
-            q: this.value
-          }
-        })
-        .then((response) => {
-          this.infos = response.data.items
-          this.isLoading = false
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-      },
-      setHistory: function(h) {
-        this.value = h
-        this.search()
-      }
-    },
-    components: {
-      Repo
+export default {
+  name: 'Search',
+  data () {
+    return {
+      value: this.$route.query.login || "SafiVL/",
+      infos: [],
+      history: [],
+      isLoading: true
     }
+  },
+  mounted () {
+    this.search()
+  },
+  methods: {
+    search: function() {
+      this.isLoading = true
+      this.$store.commit('ADD_HISTORY', this.value)
+      axios.get('https://api.github.com/search/repositories', {
+        params: {
+          q: this.value
+        }
+      })
+      .then((response) => {
+        this.infos = response.data.items
+        this.isLoading = false
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    },
+    setHistory: function(h) {
+      this.value = h
+      this.search()
+    }
+  },
+  components: {
+    Repo
   }
+}
 </script>
